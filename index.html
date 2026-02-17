@@ -410,6 +410,81 @@
             font-weight: 700;
             padding-bottom: 30px;
         }
+
+        /* --- Responsiveness for Mobile --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            /* Adjust Top Nav Positioning */
+            .top-nav {
+                top: 15px;
+                right: 15px;
+            }
+
+            /* Shrink Side Menu for narrow screens */
+            .side-menu {
+                width: 260px;
+                height: 85%;
+                top: 15%;
+            }
+
+            /* Shrink Avatar for mobile */
+            .avatar-ring {
+                width: 110px;
+                height: 110px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            /* Stack or shrink stats so they don't overflow */
+            .stats {
+                gap: 20px;
+                flex-wrap: wrap; /* Allows items to wrap if screen is very narrow */
+                justify-content: center;
+            }
+
+            .stat-item h3 {
+                font-size: 1.2rem;
+            }
+
+            .stat-item p {
+                font-size: 0.65rem;
+            }
+
+            .quote-box {
+                font-size: 0.8rem;
+                padding: 8px 18px;
+                width: 90%; /* Prevents long quotes from hitting screen edges */
+            }
+
+            .socials {
+                gap: 20px;
+            }
+
+            .socials a {
+                font-size: 1.3rem;
+            }
+
+            #clock {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* --- Extra small screens (iPhone SE / Fold) --- */
+        @media (max-width: 350px) {
+            .stats {
+                gap: 10px;
+            }
+            .avatar-ring {
+                width: 90px;
+                height: 90px;
+            }
+        }
+        
     </style>
 </head>
 
