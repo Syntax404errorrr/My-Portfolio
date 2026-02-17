@@ -6,9 +6,6 @@
 
 Welcome to my official portfolio! This is a high-performance, dark-themed personal website designed to showcase my projects, tools, and social presence. 
 
-## 🚀 Live Demo
-Check out the live version here: **[Your Vercel/GitHub Pages Link Here]**
-
 ---
 
 ## ✨ Features
