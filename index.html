@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --accent-purple: #9d80fe;
+            --accent-red: #ff1744;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --meta-blue: #0095f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* Navigation */
+        .top-nav {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        /* Burger Animation */
+        .hamburger {
+            width: 25px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            height: 2px;
+            width: 100%;
+            background-color: var(--text-color);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover span {
+            background-color: var(--accent-red);
+            box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Slide Menu - Styled like the screenshot */
+        .side-menu {
+            position: fixed;
+            top: 10%;
+            right: -100%;
+            width: 300px;
+            height: 90%;
+            background: #0a0a0a;
+            border: 1px solid var(--border-color);
+            border-radius: 15px 0 0 15px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        /* Tool List Items */
+        /* Tool List Items */
+        .tool-item {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+            text-decoration: none;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            /* Animation for staggered entry */
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Slide-in animation triggered when menu is active */
+        .side-menu.active .tool-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Staggered Delay for the first 9 items */
+        .side-menu.active .tool-item:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .side-menu.active .tool-item:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        .side-menu.active .tool-item:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .side-menu.active .tool-item:nth-child(4) {
+            transition-delay: 0.25s;
+        }
+
+        .side-menu.active .tool-item:nth-child(5) {
+            transition-delay: 0.3s;
+        }
+
+        .side-menu.active .tool-item:nth-child(6) {
+            transition-delay: 0.35s;
+        }
+
+        .side-menu.active .tool-item:nth-child(7) {
+            transition-delay: 0.4s;
+        }
+
+        .side-menu.active .tool-item:nth-child(8) {
+            transition-delay: 0.45s;
+        }
+
+        .side-menu.active .tool-item:nth-child(9) {
+            transition-delay: 0.5s;
+        }
+
+        /* Enhanced Hover Effects */
+        .tool-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            padding-left: 30px;
+            /* Slight push to the right */
+        }
+
+        /* Subtle Glow Line on Hover */
+        .tool-item::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--accent-red);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-item:hover::after {
+            transform: scaleY(1);
+        }
+
+        .tool-item.highlight {
+            background: var(--dark-red-bg);
+            border-left: 4px solid var(--accent-red);
+            opacity: 1;
+            /* Keep visible */
+        }
+
+        .tool-title {
+            display: block;
+            font-weight: 800;
+            font-size: 1rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        /* Title turns red on hover */
+        .tool-item:hover .tool-title {
+            color: var(--accent-red);
+            text-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+        }
+
+        .tool-item.highlight .tool-title {
+            color: var(--accent-red);
+        }
+
+        .tool-desc {
+            display: block;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .tool-item:hover .tool-desc {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Original Main Page Styles Preserved */
+        .avatar-container {
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-ring {
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            border: 3px solid #39f021;
+            padding: 4px;
+            animation: ring-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes ring-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(71, 245, 80, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 75, 139, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 75, 139, 0);
+            }
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .meta-verified {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+
+        .meta-verified .fa-certificate {
+            color: var(--meta-blue);
+            font-size: 1.2rem;
+        }
+
+        .meta-verified .fa-check {
+            color: white;
+            font-size: 0.55rem;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .label {
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2.5px;
+            font-weight: 800;
+            margin: 8px 0;
+        }
+
+        .quote-box {
+            background: var(--card-bg);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .socials {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 45px;
+        }
+
+        .socials a {
+            color: var(--text-color);
+            font-size: 1.6rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 45px;
+        }
+
+        .stat-item h3 {
+            font-size: 1.5rem;
+        }
+
+        .stat-item p {
+            font-size: 0.75rem;
+            opacity: 0.5;
+        }
+
+        .time-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        #clock {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        #ms {
+            color: #4cd964;
+            font-size: 0.65rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .timezone {
+            font-size: 0.5rem;
+            opacity: 0.4;
+            letter-spacing: 1px;
+        }
+
+        .battery-pill {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .bat-case {
+            width: 25px;
+            height: 12px;
+            border: 1.5px solid var(--text-color);
+            border-radius: 2px;
+            position: relative;
+            padding: 1px;
+        }
+
+        .bat-case::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 2px;
+            width: 3px;
+            height: 4px;
+            background: var(--text-color);
+        }
+
+        .bat-level {
+            height: 100%;
+            background: #4cd964;
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.8rem;
+            color: #d4af37;
+            font-weight: 700;
+            padding-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-nav">
+        <div class="hamburger" id="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <nav class="side-menu" id="menu">
+        <a href="https://nexus-bomber.vercel.app/" target="_blank" class="tool-item">
+            <span class="tool-title">Nexus Bomber</span>
+            <span class="tool-desc">Spam any PH number</span>
+        </a>
+
+        <a href="https://nowstreaming.vercel.app/" target="_blank" class="tool-item">
+            <span class="tool-title">Now Streaming</span>
+            <span class="tool-desc">Movie & Show Streaming</span>
+        </a>
+
+        <a href="https://um-web-iptv.vercel.app/" target="_blank" class="tool-item">
+            <span class="tool-title">UM Web IPTV</span>
+            <span class="tool-desc">Online Television Tool</span>
+        </a>
+    </nav>
+
+    <div class="avatar-container">
+        <div class="avatar-ring">
+            <img src="logo.jpg" alt="Siegfried" class="avatar-img">
+        </div>
+    </div>
+
+    <h1>UnknownModder
+        <span class="meta-verified">
+            <i class="fa-solid fa-certificate"></i>
+            <i class="fa-solid fa-check"></i>
+        </span>
+    </h1>
+    <p class="label">Portfolio</p>
+
+    <div class="quote-box"><span id="tagline"></span></div>
+
+    <div class="socials">
+        <a href="https://www.facebook.com/profile.php?id=61583059855128" target="_blank"><i
+                class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://instagram.com/unknownmods_modder" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://github.com/Syntax404errorrr" target="_blank"><i class="fa-brands fa-github"></i></a>
+    </div>
+
+    <div class="stats">
+        <div class="stat-item">
+            <h3>2300</h3>
+            <p>Year of birth</p>
+        </div>
+        <div class="stat-item">
+            <h3>+1M</h3>
+            <p>Likes</p>
+        </div>
+        <div class="stat-item">
+            <h3>Philippines</h3>
+            <p>Location</p>
+        </div>
+    </div>
+
+    <div class="time-section">
+        <div id="clock">00:00:00</div>
+        <div id="ms">00ms</div>
+        <div class="timezone">PHT (GMT+8)</div>
+    </div>
+
+    <div class="battery-pill">
+        <div class="bat-case">
+            <div class="bat-level" id="bat-fill"></div>
+        </div>
+        <span id="bat-perc">--%</span>
+    </div>
+
+    <footer>© 2026 | Developed by: UnknownModder</footer>
+
+    <script>
+        // Typing Logic
+        const tagline = document.getElementById('tagline');
+        const darkQuote = "Silence is the best execution.";
+        function runTyping(text) {
+            tagline.textContent = "";
+            let i = 0;
+            const t = setInterval(() => {
+                if (i < text.length) { tagline.textContent += text[i++]; }
+                else clearInterval(t);
+            }, 70);
+        }
+        runTyping(darkQuote);
+
+        // Burger Menu Logic
+        const burger = document.getElementById('burger');
+        const menu = document.getElementById('menu');
+        burger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('active');
+            burger.classList.toggle('active');
+        });
+        document.addEventListener('click', () => {
+            menu.classList.remove('active');
+            burger.classList.remove('active');
+        });
+
+        // Clock & MS Counter
+        setInterval(() => {
+            document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
+        }, 1000);
+        setInterval(() => {
+            document.getElementById('ms').textContent = Math.floor(Math.random() * 99) + 'ms';
+        }, 2000);
+
+        // Battery Level
+        if (navigator.getBattery) {
+            navigator.getBattery().then(b => {
+                const up = () => {
+                    const l = Math.round(b.level * 100);
+                    document.getElementById('bat-perc').textContent = l + '%';
+                    document.getElementById('bat-fill').style.width = l + '%';
+                };
+                up(); b.addEventListener('levelchange', up);
+            });
+        }
+    </script>
+</body>
+
+</html>
