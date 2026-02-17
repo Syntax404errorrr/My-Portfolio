@@ -6,6 +6,7 @@
 
 Welcome to my official portfolio! This is a high-performance, dark-themed personal website designed to showcase my projects, tools, and social presence. 
 
+
 ## ✨ Features
 - **Modern UI/UX**: Ultra-dark aesthetic with "Nexus" inspired red accents.
 - **Interactive Slide Menu**: A custom-animated sidebar housing various tools and projects.
@@ -15,7 +16,6 @@ Welcome to my official portfolio! This is a high-performance, dark-themed person
   - **Live Battery Status**: Tracks your device's battery level in real-time.
 - **Responsive Design**: Fully optimized for mobile, tablet, and desktop.
 
----
 
 ## 🛠️ Tech Stack
 - **HTML5**: Semantic structure.
@@ -23,7 +23,6 @@ Welcome to my official portfolio! This is a high-performance, dark-themed person
 - **JavaScript**: Real-time logic for battery API, system clock, and UI transitions.
 - **FontAwesome**: High-quality vector icons.
 
----
 
 ## 📂 Featured Projects
 The portfolio serves as a hub for my active tools and applications:
@@ -34,7 +33,6 @@ The portfolio serves as a hub for my active tools and applications:
 | **Now Streaming** | A premium movie and show streaming platform. | [Visit](https://nowstreaming.vercel.app/) |
 | **UM Web IPTV** | A web-based tool for watching live television. | [Visit](https://um-web-iptv.vercel.app/) |
 
----
 
 ## 📱 Connect With Me
 Feel free to reach out or follow my work across these platforms:
@@ -45,5 +43,4 @@ Feel free to reach out or follow my work across these platforms:
   <a href="https://github.com/Syntax404errorrr" target="blank"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
 </p>
 
----
 <p align="center">© 2026 | Developed by UnknownModder</p>
