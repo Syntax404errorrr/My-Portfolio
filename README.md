@@ -36,7 +36,6 @@ The portfolio serves as a hub for my active tools and applications:
 | **Nexus Bomber** | A powerful SMS spammer tool for PH numbers. | [Visit](https://nexus-bomber.vercel.app/) |
 | **Now Streaming** | A premium movie and show streaming platform. | [Visit](https://nowstreaming.vercel.app/) |
 | **UM Web IPTV** | A web-based tool for watching live television. | [Visit](https://um-web-iptv.vercel.app/) |
-| **Auto Share** | A specialized tool for social media engagement. | *Coming Soon* |
 
 ---
 
@@ -46,11 +45,3 @@ Feel free to reach out or follow my work across these platforms:
 - 🔵 [Facebook](https://www.facebook.com/profile.php?id=61583059855128)
 - 📸 [Instagram](https://instagram.com/unknownmods_modder)
 - 💻 [GitHub](https://github.com/Syntax404errorrr)
-
----
-
-## 🛠️ Installation & Setup
-To run this portfolio locally:
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/Syntax404errorrr/My-Portfolio.git](https://github.com/Syntax404errorrr/My-Portfolio.git)
