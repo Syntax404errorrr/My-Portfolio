@@ -6,8 +6,6 @@
 
 Welcome to my official portfolio! This is a high-performance, dark-themed personal website designed to showcase my projects, tools, and social presence. 
 
----
-
 ## ✨ Features
 - **Modern UI/UX**: Ultra-dark aesthetic with "Nexus" inspired red accents.
 - **Interactive Slide Menu**: A custom-animated sidebar housing various tools and projects.
