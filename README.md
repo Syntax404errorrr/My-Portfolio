@@ -1,8 +1,10 @@
+<p align="center">
+  <img src="https://github.com/Syntax404errorrr/My-Portfolio/blob/main/logo.jpg?raw=true" alt="UnknownModder Logo" width="120" style="border-radius: 50%;">
+</p>
+
 # 🌐 My Portfolio - UnknownModder
 
 Welcome to my official portfolio! This is a high-performance, dark-themed personal website designed to showcase my projects, tools, and social presence. 
-
-![Portfolio Preview](https://github.com/Syntax404errorrr/My-Portfolio/blob/main/logo.jpg?raw=true)
 
 ## 🚀 Live Demo
 Check out the live version here: **[Your Vercel/GitHub Pages Link Here]**
@@ -42,6 +44,11 @@ The portfolio serves as a hub for my active tools and applications:
 ## 📱 Connect With Me
 Feel free to reach out or follow my work across these platforms:
 
-- 🔵 [Facebook](https://www.facebook.com/profile.php?id=61583059855128)
-- 📸 [Instagram](https://instagram.com/unknownmods_modder)
-- 💻 [GitHub](https://github.com/Syntax404errorrr)
+<p align="left">
+  <a href="https://www.facebook.com/profile.php?id=61583059855128" target="blank"><img src="https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white" alt="Facebook" /></a>
+  <a href="https://instagram.com/unknownmods_modder" target="blank"><img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white" alt="Instagram" /></a>
+  <a href="https://github.com/Syntax404errorrr" target="blank"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+</p>
+
+---
+<p align="center">© 2026 | Developed by UnknownModder</p>
