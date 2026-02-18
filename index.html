@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -26,6 +26,15 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
+        /* --- FIX: BACKGROUND LOCK --- */
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -35,8 +44,14 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow-x: hidden;
             text-align: center;
+        }
+
+        /* Prevent background scroll when menu is active */
+        body.menu-open {
+            overflow: hidden !important;
+            position: fixed; /* Hard lock for iOS */
+            width: 100%;
         }
 
         /* Navigation */
@@ -85,29 +100,42 @@
             transform: translateY(-8px) rotate(-45deg);
         }
 
-        /* Slide Menu - Styled like the screenshot */
+        /* --- FIX: STABLE SIDE MENU --- */
         .side-menu {
             position: fixed;
-            top: 10%;
-            right: -100%;
-            width: 300px;
-            height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -320px;
+            width: 280px;
+            height: 75vh; /* viewport height is more stable on mobile */
             background: #0a0a0a;
             border: 1px solid var(--border-color);
-            border-radius: 15px 0 0 15px;
-            z-index: 1000;
+            border-radius: 20px;
+            z-index: 2000;
             display: flex;
             flex-direction: column;
+            
+            /* Internal scroll only */
             overflow-y: auto;
+            overflow-x: hidden;
+            overscroll-behavior: contain; /* Prevents scroll leakage */
+            -webkit-overflow-scrolling: touch; /* Smooth iOS scroll */
+            
             transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .side-menu::-webkit-scrollbar {
+            display: none;
         }
 
         .side-menu.active {
-            right: 0;
+            right: 15px; /* Gap from the edge to avoid scrollbar conflict */
         }
 
-        /* Tool List Items */
         /* Tool List Items */
         .tool-item {
             padding: 20px;
@@ -117,63 +145,25 @@
             display: block;
             position: relative;
             overflow: hidden;
-            /* Animation for staggered entry */
             opacity: 0;
             transform: translateX(30px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Slide-in animation triggered when menu is active */
         .side-menu.active .tool-item {
             opacity: 1;
             transform: translateX(0);
         }
 
-        /* Staggered Delay for the first 9 items */
-        .side-menu.active .tool-item:nth-child(1) {
-            transition-delay: 0.1s;
-        }
+        .side-menu.active .tool-item:nth-child(1) { transition-delay: 0.1s; }
+        .side-menu.active .tool-item:nth-child(2) { transition-delay: 0.15s; }
+        .side-menu.active .tool-item:nth-child(3) { transition-delay: 0.2s; }
 
-        .side-menu.active .tool-item:nth-child(2) {
-            transition-delay: 0.15s;
-        }
-
-        .side-menu.active .tool-item:nth-child(3) {
-            transition-delay: 0.2s;
-        }
-
-        .side-menu.active .tool-item:nth-child(4) {
-            transition-delay: 0.25s;
-        }
-
-        .side-menu.active .tool-item:nth-child(5) {
-            transition-delay: 0.3s;
-        }
-
-        .side-menu.active .tool-item:nth-child(6) {
-            transition-delay: 0.35s;
-        }
-
-        .side-menu.active .tool-item:nth-child(7) {
-            transition-delay: 0.4s;
-        }
-
-        .side-menu.active .tool-item:nth-child(8) {
-            transition-delay: 0.45s;
-        }
-
-        .side-menu.active .tool-item:nth-child(9) {
-            transition-delay: 0.5s;
-        }
-
-        /* Enhanced Hover Effects */
         .tool-item:hover {
             background: rgba(255, 255, 255, 0.05);
             padding-left: 30px;
-            /* Slight push to the right */
         }
 
-        /* Subtle Glow Line on Hover */
         .tool-item::after {
             content: '';
             position: absolute;
@@ -186,16 +176,7 @@
             transition: transform 0.3s ease;
         }
 
-        .tool-item:hover::after {
-            transform: scaleY(1);
-        }
-
-        .tool-item.highlight {
-            background: var(--dark-red-bg);
-            border-left: 4px solid var(--accent-red);
-            opacity: 1;
-            /* Keep visible */
-        }
+        .tool-item:hover::after { transform: scaleY(1); }
 
         .tool-title {
             display: block;
@@ -207,14 +188,9 @@
             transition: color 0.3s ease;
         }
 
-        /* Title turns red on hover */
         .tool-item:hover .tool-title {
             color: var(--accent-red);
             text-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
-        }
-
-        .tool-item.highlight .tool-title {
-            color: var(--accent-red);
         }
 
         .tool-desc {
@@ -222,18 +198,10 @@
             font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.5);
             margin-top: 4px;
-            transition: color 0.3s ease;
         }
 
-        .tool-item:hover .tool-desc {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Original Main Page Styles Preserved */
-        .avatar-container {
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
+        /* Original Main Page Styles */
+        .avatar-container { margin-top: 50px; margin-bottom: 20px; }
 
         .avatar-ring {
             width: 135px;
@@ -245,25 +213,12 @@
         }
 
         @keyframes ring-pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(71, 245, 80, 0.5);
-            }
-
-            70% {
-                box-shadow: 0 0 0 15px rgba(255, 75, 139, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 75, 139, 0);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(71, 245, 80, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 75, 139, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 75, 139, 0); }
         }
 
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+        .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
         h1 {
             font-size: 1.9rem;
@@ -277,23 +232,13 @@
         .meta-verified {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             position: relative;
             width: 1.2rem;
             height: 1.2rem;
         }
 
-        .meta-verified .fa-certificate {
-            color: var(--meta-blue);
-            font-size: 1.2rem;
-        }
-
-        .meta-verified .fa-check {
-            color: white;
-            font-size: 0.55rem;
-            position: absolute;
-            z-index: 1;
-        }
+        .meta-verified .fa-certificate { color: var(--meta-blue); font-size: 1.2rem; }
+        .meta-verified .fa-check { color: white; font-size: 0.55rem; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; }
 
         .label {
             color: var(--accent-purple);
@@ -315,56 +260,17 @@
             align-items: center;
         }
 
-        .socials {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 45px;
-        }
+        .socials { display: flex; gap: 30px; margin-bottom: 45px; }
+        .socials a { color: var(--text-color); font-size: 1.6rem; }
 
-        .socials a {
-            color: var(--text-color);
-            font-size: 1.6rem;
-        }
+        .stats { display: flex; gap: 40px; margin-bottom: 45px; }
+        .stat-item h3 { font-size: 1.5rem; }
+        .stat-item p { font-size: 0.75rem; opacity: 0.5; }
 
-        .stats {
-            display: flex;
-            gap: 40px;
-            margin-bottom: 45px;
-        }
-
-        .stat-item h3 {
-            font-size: 1.5rem;
-        }
-
-        .stat-item p {
-            font-size: 0.75rem;
-            opacity: 0.5;
-        }
-
-        .time-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        #clock {
-            font-size: 1.5rem;
-            font-weight: 500;
-        }
-
-        #ms {
-            color: #4cd964;
-            font-size: 0.65rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .timezone {
-            font-size: 0.5rem;
-            opacity: 0.4;
-            letter-spacing: 1px;
-        }
+        .time-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; }
+        #clock { font-size: 1.5rem; font-weight: 500; }
+        #ms { color: #4cd964; font-size: 0.65rem; font-weight: bold; margin-bottom: 8px; }
+        .timezone { font-size: 0.5rem; opacity: 0.4; letter-spacing: 1px; }
 
         .battery-pill {
             background: var(--card-bg);
@@ -383,7 +289,6 @@
             border: 1.5px solid var(--text-color);
             border-radius: 2px;
             position: relative;
-            padding: 1px;
         }
 
         .bat-case::after {
@@ -396,89 +301,19 @@
             background: var(--text-color);
         }
 
-        .bat-level {
-            height: 100%;
-            background: #4cd964;
-            width: 0%;
-            transition: width 0.5s;
-        }
+        .bat-level { height: 100%; background: #4cd964; width: 0%; transition: width 0.5s; }
 
-        footer {
-            margin-top: 50px;
-            font-size: 0.8rem;
-            color: #d4af37;
-            font-weight: 700;
-            padding-bottom: 30px;
-        }
+        footer { margin-top: 50px; font-size: 0.8rem; color: #d4af37; font-weight: 700; padding-bottom: 30px; }
 
-        /* --- Responsiveness for Mobile --- */
         @media (max-width: 600px) {
-            body {
-                padding: 20px;
-            }
-
-            /* Adjust Top Nav Positioning */
-            .top-nav {
-                top: 15px;
-                right: 15px;
-            }
-
-            /* Shrink Side Menu for narrow screens */
-            .side-menu {
-                width: 260px;
-                height: 85%;
-                top: 15%;
-            }
-
-            /* Shrink Avatar for mobile */
-            .avatar-ring {
-                width: 110px;
-                height: 110px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            /* Stack or shrink stats so they don't overflow */
-            .stats {
-                gap: 20px;
-                flex-wrap: wrap; /* Allows items to wrap if screen is very narrow */
-                justify-content: center;
-            }
-
-            .stat-item h3 {
-                font-size: 1.2rem;
-            }
-
-            .stat-item p {
-                font-size: 0.65rem;
-            }
-            
-            .socials {
-                gap: 20px;
-            }
-
-            .socials a {
-                font-size: 1.3rem;
-            }
-
-            #clock {
-                font-size: 1.2rem;
-            }
+            .top-nav { top: 15px; right: 15px; }
+            .side-menu { width: 260px; height: 80vh; top: 50%; }
+            .avatar-ring { width: 110px; height: 110px; }
+            h1 { font-size: 1.5rem; }
+            .stats { gap: 20px; justify-content: center; }
+            .stat-item h3 { font-size: 1.2rem; }
+            #clock { font-size: 1.2rem; }
         }
-
-        /* --- Extra small screens (iPhone SE / Fold) --- */
-        @media (max-width: 350px) {
-            .stats {
-                gap: 10px;
-            }
-            .avatar-ring {
-                width: 90px;
-                height: 90px;
-            }
-        }
-
     </style>
 </head>
 
@@ -497,12 +332,10 @@
             <span class="tool-title">Nexus Bomber</span>
             <span class="tool-desc">Spam any PH number</span>
         </a>
-
         <a href="https://nowstreaming.vercel.app/" target="_blank" class="tool-item">
             <span class="tool-title">Now Streaming</span>
             <span class="tool-desc">Movie & Show Streaming</span>
         </a>
-
         <a href="https://um-web-iptv.vercel.app/" target="_blank" class="tool-item">
             <span class="tool-title">UM Web IPTV</span>
             <span class="tool-desc">Online Television Tool</span>
@@ -526,8 +359,7 @@
     <div class="quote-box"><span id="tagline"></span></div>
 
     <div class="socials">
-        <a href="https://www.facebook.com/profile.php?id=61583059855128" target="_blank"><i
-                class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61583059855128" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
         <a href="https://instagram.com/unknownmods_modder" target="_blank"><i class="fa-brands fa-instagram"></i></a>
         <a href="https://github.com/Syntax404errorrr" target="_blank"><i class="fa-brands fa-github"></i></a>
     </div>
@@ -576,17 +408,31 @@
         }
         runTyping(darkQuote);
 
-        // Burger Menu Logic
+        // --- FIXED SIDE MENU LOGIC ---
         const burger = document.getElementById('burger');
         const menu = document.getElementById('menu');
+        const body = document.body;
+
         burger.addEventListener('click', (e) => {
             e.stopPropagation();
-            menu.classList.toggle('active');
+            const isOpen = menu.classList.toggle('active');
             burger.classList.toggle('active');
+            
+            // Toggle fixed body to prevent scrolling background
+            if(isOpen) {
+                body.classList.add('menu-open');
+            } else {
+                body.classList.remove('menu-open');
+            }
         });
-        document.addEventListener('click', () => {
-            menu.classList.remove('active');
-            burger.classList.remove('active');
+
+        // Close menu when clicking background
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target) && !burger.contains(e.target)) {
+                menu.classList.remove('active');
+                burger.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
         });
 
         // Clock & MS Counter
