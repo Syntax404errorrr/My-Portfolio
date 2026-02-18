@@ -28,7 +28,7 @@
     </script>
 
     <style type="text/css">
-        /* Custom Animations & Transitions not easily covered by Tailwind base */
+        /* Custom Animations & Transitions */
         .ring-pulse {
             animation: ring-pulse 2s infinite ease-in-out;
         }
@@ -57,6 +57,36 @@
         .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* Tagline Animations */
+        #tagline {
+            transition: color 1s ease-in-out, text-shadow 1s ease-in-out;
+        }
+
+        #tagline::after {
+            content: '|';
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Neon Color Cycle */
+        .neon-purple { color: #9d80fe; text-shadow: 0 0 10px #9d80fe, 0 0 20px rgba(157, 128, 254, 0.4); }
+        .neon-red { color: #ff1744; text-shadow: 0 0 10px #ff1744, 0 0 20px rgba(255, 23, 68, 0.4); }
+        .neon-blue { color: #0095f6; text-shadow: 0 0 10px #0095f6, 0 0 20px rgba(0, 149, 246, 0.4); }
+        .neon-green { color: #39f021; text-shadow: 0 0 10px #39f021, 0 0 20px rgba(57, 240, 33, 0.4); }
+
+        /* Social Hover Glow */
+        .social-link {
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            filter: drop-shadow(0 0 8px currentColor);
+        }
     </style>
 </head>
 
@@ -107,14 +137,14 @@
     
     <p class="text-accentPurple uppercase text-[10px] tracking-[2.5px] font-extrabold my-2">Portfolio</p>
 
-    <div class="bg-white/5 px-6 py-2.5 rounded-full text-sm mb-8 min-h-[40px] inline-flex items-center">
-        <span id="tagline"></span>
+    <div class="px-6 py-2.5 mb-8 min-h-[40px] inline-flex items-center">
+        <span id="tagline" class="text-[12px] font-medium tracking-wide neon-purple"></span>
     </div>
 
     <div class="flex gap-8 mb-11 text-2xl">
-        <a href="https://www.facebook.com/profile.php?id=61583059855128" target="_blank" class="hover:text-metaBlue transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://instagram.com/unknownmods_modder" target="_blank" class="hover:text-accentRed transition-colors"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://github.com/Syntax404errorrr" target="_blank" class="hover:opacity-70 transition-opacity"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61583059855128" target="_blank" class="social-link text-white hover:text-metaBlue"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://instagram.com/unknownmods_modder" target="_blank" class="social-link text-white hover:text-accentRed"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://github.com/Syntax404errorrr" target="_blank" class="social-link text-white hover:opacity-70"><i class="fa-brands fa-github"></i></a>
     </div>
 
     <div class="flex flex-wrap justify-center gap-5 md:gap-10 mb-11">
@@ -145,23 +175,53 @@
         <span id="bat-perc" class="text-xs">--%</span>
     </div>
 
-    <footer class="mt-12 text-[10px] text-[#d4af37] font-bold pb-8">
+    <footer class="mt-12 text-xs text-[#d4af37] font-bold pb-8">
         © 2026 | Developed by: UnknownModder
     </footer>
 
     <script>
-        // All logic preserved exactly as requested
         const tagline = document.getElementById('tagline');
-        const darkQuote = "Silence is the best execution.";
-        function runTyping(text) {
-            tagline.textContent = "";
-            let i = 0;
-            const t = setInterval(() => {
-                if (i < text.length) { tagline.textContent += text[i++]; }
-                else clearInterval(t);
-            }, 70);
+        const phrases = [
+            "Silence is the best execution.",
+            "Building the future, one line at a time.",
+            "Stay hungry. Stay foolish.",
+            "Logic is the beginning of wisdom."
+        ];
+        const neonClasses = ['neon-purple', 'neon-red', 'neon-blue', 'neon-green'];
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                tagline.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                tagline.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typingSpeed = 2000;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                // Preserve the existing classes while switching neon colors
+                tagline.className = `text-[12px] font-medium tracking-wide ${neonClasses[phraseIndex % neonClasses.length]}`;
+                typingSpeed = 500;
+            }
+
+            setTimeout(typeEffect, typingSpeed);
         }
-        runTyping(darkQuote);
+
+        typeEffect();
 
         const burger = document.getElementById('burger');
         const menu = document.getElementById('menu');
