@@ -29,7 +29,7 @@ The portfolio serves as a hub for my active tools and applications:
 
 | Project | Description | Link |
 | :--- | :--- | :--- |
-| **Nexus Bomber** | A powerful SMS spammer tool for PH numbers. | [Visit](https://nexus-bomber.vercel.app/) |
+| **Nexus Bomber** | A powerful SMS spammer tool for PH numbers. | [Visit](https://nexus-sms-bomber.vercel.app/) |
 | **Now Streaming** | A premium movie and show streaming platform. | [Visit](https://nowstreaming.vercel.app/) |
 | **UM Web IPTV** | A web-based tool for watching live television. | [Visit](https://um-web-iptv.vercel.app/) |
 
